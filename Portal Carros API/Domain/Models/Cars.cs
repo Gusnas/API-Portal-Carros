@@ -1,8 +1,6 @@
-﻿using Portal_Carros_API.Domain.Helpers;
-
-namespace Portal_Carros_API.Domain.Models
+﻿namespace Portal_Carros_API.Domain.Models
 {
-    public class Cars
+    public abstract class Cars
     {
         public int Id { get; set; }
         public double Consumption { get; set; }
@@ -15,9 +13,7 @@ namespace Portal_Carros_API.Domain.Models
 
         public string CarModel { get; set; }
 
-        public double Autonomy => Consumption * CurrentFuel;
-
-        public ECarsType CarsType { get; set; }
+        public virtual double Autonomy { get; set; }
 
     }
 }

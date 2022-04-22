@@ -1,6 +1,8 @@
-﻿using Portal_Carros_API.Domain.Helpers;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Portal_Carros_API.Domain.Models;
+using Portal_Carros_API.Services;
+using System.Net;
+using System.Net.Http;
 
 namespace Portal_Carros_API.Controllers
 {
@@ -20,11 +22,11 @@ namespace Portal_Carros_API.Controllers
         {
             var carList = new List<Cars>
             {
-                new Cars { Id = 1, Consumption = 10.0, TankCapacity = 55, CurrentFuel = 25, AverageSpeed = 16, CarModel = "Peugeot 208 GT", CarsType = ECarsType.Turbo},
-                new Cars { Id = 2, Consumption = 11.3, TankCapacity = 44, CurrentFuel = 21, AverageSpeed = 25, CarModel = "Citroen DS3", CarsType = ECarsType.Turbo},
-                new Cars { Id = 3, Consumption = 10.2, TankCapacity = 50, CurrentFuel = 10, AverageSpeed = 46, CarModel = "Chevrolet Chevette", CarsType = ECarsType.Basic},
-                new Cars { Id = 4, Consumption = 6.7, TankCapacity = 80, CurrentFuel = 50, AverageSpeed = 20, CarModel = "BMW 328i", CarsType = ECarsType.Basic},
-                new Cars { Id = 5, Consumption = 9.5, TankCapacity = 40, CurrentFuel = 36, AverageSpeed = 14, CarModel = "Volkswagen Gol", CarsType = ECarsType.Economic}
+                new TurboCar { Id = 1, Consumption = 10.0, TankCapacity = 55, CurrentFuel = 25, AverageSpeed = 16, CarModel = "Peugeot 208 GT"},
+                new TurboCar { Id = 2, Consumption = 11.3, TankCapacity = 44, CurrentFuel = 21, AverageSpeed = 25, CarModel = "Citroen DS3"},
+                new BasicCar { Id = 3, Consumption = 10.2, TankCapacity = 50, CurrentFuel = 10, AverageSpeed = 46, CarModel = "Chevrolet Chevette"},
+                new EconomyCar { Id = 4, Consumption = 6.7, TankCapacity = 80, CurrentFuel = 50, AverageSpeed = 20, CarModel = "BMW 328i"},
+                new TurboCar { Id = 5, Consumption = 9.5, TankCapacity = 40, CurrentFuel = 36, AverageSpeed = 14, CarModel = "Volkswagen Gol"}
             };
             return carList;
         }
@@ -34,44 +36,72 @@ namespace Portal_Carros_API.Controllers
         {
             var carList = new List<Cars>
             {
-                new Cars { Id = 1, Consumption = 10.0, TankCapacity = 55, CurrentFuel = 25, AverageSpeed = 16, CarModel = "Peugeot 208 GT", CarsType = ECarsType.Turbo},
-                new Cars { Id = 2, Consumption = 11.3, TankCapacity = 44, CurrentFuel = 21, AverageSpeed = 25, CarModel = "Citroen DS3", CarsType = ECarsType.Turbo},
-                new Cars { Id = 3, Consumption = 10.2, TankCapacity = 50, CurrentFuel = 10, AverageSpeed = 46, CarModel = "Chevrolet Chevette", CarsType = ECarsType.Basic},
-                new Cars { Id = 4, Consumption = 6.7, TankCapacity = 80, CurrentFuel = 50, AverageSpeed = 20, CarModel = "BMW 328i", CarsType = ECarsType.Basic},
-                new Cars { Id = 5, Consumption = 9.5, TankCapacity = 40, CurrentFuel = 36, AverageSpeed = 14, CarModel = "Volkswagen Gol", CarsType = ECarsType.Economic}
+                new TurboCar { Id = 1, Consumption = 10.0, TankCapacity = 55, CurrentFuel = 25, AverageSpeed = 16, CarModel = "Peugeot 208 GT"},
+                new TurboCar { Id = 2, Consumption = 11.3, TankCapacity = 44, CurrentFuel = 21, AverageSpeed = 25, CarModel = "Citroen DS3"},
+                new BasicCar { Id = 3, Consumption = 10.2, TankCapacity = 50, CurrentFuel = 10, AverageSpeed = 46, CarModel = "Chevrolet Chevette"},
+                new EconomyCar { Id = 4, Consumption = 6.7, TankCapacity = 80, CurrentFuel = 50, AverageSpeed = 20, CarModel = "BMW 328i"},
+                new TurboCar { Id = 5, Consumption = 9.5, TankCapacity = 40, CurrentFuel = 36, AverageSpeed = 14, CarModel = "Volkswagen Gol"}
             };
             return carList;
         }
 
-        [HttpPost("RefuelCarByModel")]
+        [HttpPut("RefuelCarByModel")]
 
-        public string RefuelCarByModel()
+        public ActionResult RefuelCarByModel(string carModel, double fuelQuantity)
         {
-            return "teste";
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
+                
+                return Ok(HttpStatusCode.OK);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
 
 
         [HttpPut("ActivateTurbo")]
-        public string ActivateTurbo()
+        public ActionResult ActivateTurbo(string carModel)
         {
-            return "";
+            try
+            {
+                TurboCar peugeot208GT = new TurboCar { Id = 1, Consumption = 10.0, TankCapacity = 55, CurrentFuel = 25, AverageSpeed = 16, CarModel = "Peugeot 208 GT" };
+                peugeot208GT.TurboModeActivate();
+                return Ok(peugeot208GT);
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
         }
 
         [HttpPut("ActivateEconomyMode")]
-        public string ActivateEconomyMode()
+        public IActionResult ActivateEconomyMode(string carModel)
         {
-            return "";
+            try
+            {
+                EconomyCar bmw328 = new EconomyCar { Id = 4, Consumption = 6.7, TankCapacity = 80, CurrentFuel = 50, AverageSpeed = 20, CarModel = "BMW 328i" };
+                bmw328.EconomicModeActivate();
+                return Ok(bmw328);
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
         }
         [HttpGet("GetBiggerAutonomy")]
         public Cars GetBiggerAutonomy()
         {
-            return new Cars { Id = 1, Consumption = 10.0, TankCapacity = 55, CurrentFuel = 25, AverageSpeed = 16, CarModel = "Peugeot 208 GT", CarsType = ECarsType.Turbo };
+            return new TurboCar { Id = 1, Consumption = 10.0, TankCapacity = 55, CurrentFuel = 25, AverageSpeed = 16, CarModel = "Peugeot 208 GT" };
         }
         [HttpGet("GetFastestCar")]
         public Cars GetFastestCar()
         {
-            return new Cars { Id = 1, Consumption = 10.0, TankCapacity = 55, CurrentFuel = 25, AverageSpeed = 16, CarModel = "Peugeot 208 GT", CarsType = ECarsType.Turbo };
+            return new TurboCar { Id = 1, Consumption = 10.0, TankCapacity = 55, CurrentFuel = 25, AverageSpeed = 16, CarModel = "Peugeot 208 GT" };
         }
     }
 }

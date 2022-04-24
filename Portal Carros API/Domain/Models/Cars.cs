@@ -22,5 +22,26 @@ namespace Portal_Carros_API.Domain.Models
         public bool IsTurboActive { get; set; }
 
         public bool IsEconomyModeActive { get; set; }
+
+        public Cars(double consumption, double tankCapacity, double currentFuel, double averageSpeed, string carModel, ECarsType carType)
+        {
+            Consumption = consumption;
+            TankCapacity = tankCapacity;
+            CurrentFuel = currentFuel;
+            AverageSpeed = averageSpeed;
+            CarModel = carModel;
+            CarType = carType;
+        }
+
+        public Cars(int id, double consumption, double tankCapacity, double currentFuel, double averageSpeed, string carModel, ECarsType carType)
+        {
+            Id = id;
+            Consumption = consumption;
+            TankCapacity = tankCapacity;
+            CurrentFuel = currentFuel;
+            AverageSpeed = averageSpeed;
+            CarModel = carModel;
+            CarType = carType;
+        }
     }
 }

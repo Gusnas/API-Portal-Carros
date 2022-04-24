@@ -2,7 +2,6 @@
 using Portal_Carros_API.Domain.Models;
 using Portal_Carros_API.List;
 using Portal_Carros_API.Services;
-using System.Text.Json;
 
 namespace Portal_Carros_API.Controllers
 {

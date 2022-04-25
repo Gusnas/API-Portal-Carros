@@ -13,7 +13,8 @@ ativar modo econômico, ativar modo turbo.
 
 Para que seja possível testar o projeto, garanta que tenha instalado em seu PC o dotnet 6.
 
-Para testar a API inicie o projeto Portal_Carros_API e acesse o endereço https://localhost:7169/swagger/index.html,
+Para testar a API inicie o projeto Portal_Carros_API via cmd com o comando dotnet run ou pelo visual studio
+em seguida acesse o endereço https://localhost:7169/swagger/index.html,
 todos os endpoints criados na API estarão disponíveis para teste neste endereço.
 
 ## Testes Unitários

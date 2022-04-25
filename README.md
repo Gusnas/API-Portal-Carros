@@ -1,6 +1,6 @@
 # portal-carros-api
 
-Esse repositório diz respeito a um desafio em .Net Core proposto pelo Instituto Atlântico.
+Esse repositório diz respeito a um desafio em .Net Core proposto pelo IA.
 Em resumo, é uma API que permite a consulta dos carros cadastrados e algumas operações nos carros disponíveis.
 
 ## Solução
